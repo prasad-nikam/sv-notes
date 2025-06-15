@@ -1,5 +1,7 @@
 # SvelteKit Notes App 📒
 
+https://sv-notes.netlify.app/
+
 A simple CRUD notes app built using **SvelteKit** and **TailwindCSS**. Users can create, view, update, and delete notes by interacting with a mock API.
 
 ---
