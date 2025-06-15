@@ -50,39 +50,11 @@ These aren't mandatory, but could be a way to showcase your abilities:
 
 - ✅ Improve the UX feedback on async operations. E.g. show a spinner while waiting for a response and/or perform operations optimistically, reflecting changes before the response comes back.
 - Implement pagination, limiting the view to 20 notes per page, or infinite scroll.
-- Sorting of notes
-- Implement a search box, allowing the user to filter notes by title.
+- ✅ Sorting of notes
+- ✅ Implement a search box, allowing the user to filter notes by title.
 - ✅ Implement a confirmation modal for deleting notes.
-- Dark mode.
+- ✅ Dark mode (multi theme).
 
 Note that these are not requirements, and you could also ship other features that you think would be interesting, even if they are not part of this document. You are also welcome to deviate from the requirements as long as you provide a reasonable UX/UI justification for your choices.
 
 ---
-
-## 🧰 Tech Requirements
-
-- Use **Svelte** for UI components
-- Use **TailwindCSS** for styling
-- Use the **Fetch API** for HTTP requests
-
----
-
-## 🧪 API
-
-We recommend using [https://mockapi.io](https://mockapi.io) with this setup:
-
-![image](https://i.imgur.com/7I2gxP6.png)
-
-Note that mockAPI has built-in support for filtering and pagination, making it a perfect candidate if you want to work on the optional features.
-
-If you prefer, feel free to use other alternatives like [https://jsonplaceholder.typicode.com](https://jsonplaceholder.typicode.com) or create a local mock API using [json-server](https://github.com/typicode/json-server). Just make sure to document your choice of data source so that we can properly test your solution.
-
----
-
-## 📦 What to Submit
-
-- A link to a GitHub repo with your code (email to engineering@inlabels.in)
-- A short README including:
-  - How to run the app
-  - Any trade-offs or assumptions you made
-  - What you'd do with more times

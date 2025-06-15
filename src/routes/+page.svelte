@@ -13,12 +13,10 @@
 	let content = '';
 	let editing = null;
 	let searchTerm = '';
-	let currentPage = 1;
-	let limit = 20;
 
 	const loadNotes = async () => {
 		isLoading.set(true);
-		notes = await fetchNotes(currentPage, limit);
+		notes = await fetchNotes();
 		isLoading.set(false);
 	};
 

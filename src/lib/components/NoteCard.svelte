@@ -10,14 +10,15 @@
 	let id = null;
 </script>
 
-<div class="rounded-xl border border-gray-200 bg-blue-100 p-5 shadow-md">
-	<h2 class="mb-2 text-2xl font-semibold text-gray-800">{note.title}</h2>
-	<p class="whitespace-pre-wrap text-gray-600">{note.content}</p>
-	<p class="whitespace-pre-wrap text-gray-600">
-		{formatDate(note.createdAt) + ' ' + formatTime(note.createdAt)}
-	</p>
-
-	<div class="mt-4 flex justify-end gap-4">
+<div class="flex justify-between rounded-xl border border-gray-200 bg-blue-100 p-5 shadow-md">
+	<div>
+		<h2 class="mb-2 text-2xl font-semibold text-gray-800">{note.title}</h2>
+		<p class="whitespace-pre-wrap text-gray-800">{note.content}</p>
+		<p class="whitespace-pre-wrap text-sm text-gray-500">
+			{formatDate(note.createdAt) + ' ' + formatTime(note.createdAt)}
+		</p>
+	</div>
+	<div class="flex justify-end gap-4">
 		<button
 			on:click={() => editNote(note)}
 			class="flex items-center gap-1 rounded-lg px-3 py-1.5 text-sm text-blue-600 transition hover:bg-blue-50"
