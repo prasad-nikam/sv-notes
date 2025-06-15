@@ -117,13 +117,6 @@
 						placeholder="Search your notes"
 						bind:value={searchTerm}
 					/>
-
-					<button
-						class="w-full rounded-md bg-blue-500 px-4 py-2 text-sm text-white transition hover:bg-blue-700 sm:w-auto"
-						type="button"
-					>
-						Search
-					</button>
 				</div>
 			</form>
 		</div>

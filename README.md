@@ -1,4 +1,31 @@
-# 🧪 Frontend Internship Take-Home Challenge
+# SvelteKit Notes App 📒
+
+A simple CRUD notes app built using **SvelteKit** and **TailwindCSS**. Users can create, view, update, and delete notes by interacting with a mock API.
+
+---
+
+## 🚀 How to Run the App Locally
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/prasad-nikam/sv-notes.git
+cd sv-notes
+```
+
+### 2. Install dependencies
+
+```bash
+npm install
+```
+
+### 3. Run the development server
+
+```bash
+npm run dev
+```
+
+Visit http://localhost:5173 in your browser.
 
 ## 🧠 Goal
 
@@ -54,7 +81,3 @@ These aren't mandatory, but could be a way to showcase your abilities:
 - ✅ Implement a search box, allowing the user to filter notes by title.
 - ✅ Implement a confirmation modal for deleting notes.
 - ✅ Dark mode (multi theme).
-
-Note that these are not requirements, and you could also ship other features that you think would be interesting, even if they are not part of this document. You are also welcome to deviate from the requirements as long as you provide a reasonable UX/UI justification for your choices.
-
----
