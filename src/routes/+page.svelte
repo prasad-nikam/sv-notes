@@ -6,15 +6,19 @@
 	import { fetchNotes, createNote, updateNote, deleteNote as deleteNoteAPI } from '$lib/api/notes';
 	import Spinner from '$lib/components/Spinner.svelte';
 	import ConfirmationBox from '$lib/components/ConfirmationBox.svelte';
+	import ThemeSwitcher from '$lib/components/ThemeSwitcher.svelte';
 
 	let notes = [];
 	let title = '';
 	let content = '';
 	let editing = null;
+	let searchTerm = '';
+	let currentPage = 1;
+	let limit = 20;
 
 	const loadNotes = async () => {
 		isLoading.set(true);
-		notes = await fetchNotes();
+		notes = await fetchNotes(currentPage, limit);
 		isLoading.set(false);
 	};
 
@@ -45,6 +49,24 @@
 	};
 
 	onMount(loadNotes);
+	$: filteredNotes = notes.filter((note) =>
+		note.title.toLowerCase().includes(searchTerm.toLowerCase())
+	);
+
+	let sortOption = 'newest'; // default sort
+
+	$: sortedNotes = [...filteredNotes].sort((a, b) => {
+		if (sortOption === 'az') {
+			return a.title.localeCompare(b.title);
+		} else if (sortOption === 'za') {
+			return b.title.localeCompare(a.title);
+		} else if (sortOption === 'oldest') {
+			return new Date(a.createdAt) - new Date(b.createdAt);
+		} else if (sortOption === 'newest') {
+			return new Date(b.createdAt) - new Date(a.createdAt);
+		}
+		return 0;
+	});
 </script>
 
 <main class="mx-auto flex w-full max-w-7xl flex-col gap-6 px-4 py-4 md:flex-row">
@@ -77,12 +99,16 @@
 				{editing ? 'Update Note' : 'Add Note'}
 			</button>
 		</form>
+		<div class="flex justify-start gap-1 p-4">
+			change Theme:
+			<ThemeSwitcher />
+		</div>
 	</aside>
 
 	<!-- Notes Section -->
 	<section class="flex h-[70vh] flex-1 flex-col md:h-[calc(100vh-4rem)]">
 		<!-- Sticky Search Bar -->
-		<div class="sticky top-0 z-10 bg-white pb-4">
+		<div class="sticky top-0 z-10 mb-4 rounded-xl bg-white">
 			<form>
 				<div
 					class="flex flex-col items-stretch gap-3 rounded-xl border border-gray-300 bg-white px-4 py-2 shadow-sm focus-within:border-blue-500 sm:flex-row sm:items-center"
@@ -91,7 +117,9 @@
 						class="flex-1 bg-transparent text-gray-700 placeholder-gray-400 focus:outline-none"
 						type="text"
 						placeholder="Search your notes"
+						bind:value={searchTerm}
 					/>
+
 					<button
 						class="w-full rounded-md bg-blue-500 px-4 py-2 text-sm text-white transition hover:bg-blue-700 sm:w-auto"
 						type="button"
@@ -102,6 +130,20 @@
 			</form>
 		</div>
 
+		<div class="mt-2 flex flex-wrap items-center gap-3 text-sm text-gray-700">
+			<label for="sort">Sort by:</label>
+			<select
+				id="sort"
+				bind:value={sortOption}
+				class="rounded-md border border-gray-300 bg-white px-2 py-1 text-gray-700 shadow-sm focus:border-blue-500 focus:outline-none"
+			>
+				<option value="newest">Newest First</option>
+				<option value="oldest">Oldest First</option>
+				<option value="az">A → Z (Title)</option>
+				<option value="za">Z → A (Title)</option>
+			</select>
+		</div>
+
 		<!-- Notes List -->
 		<div class="mt-4 flex-1 overflow-y-auto pr-2">
 			{#if $isLoading}
@@ -110,9 +152,13 @@
 				</div>
 			{:else}
 				<div class="space-y-4">
-					{#each notes as note (note.id)}
-						<NoteCard {note} {deleteNote} {editNote} />
-					{/each}
+					{#if sortedNotes.length > 0}
+						{#each sortedNotes as note (note.id)}
+							<NoteCard {note} {deleteNote} {editNote} />
+						{/each}
+					{:else}
+						<p class="text-center text-gray-500">No notes found matching your search.</p>
+					{/if}
 				</div>
 			{/if}
 		</div>

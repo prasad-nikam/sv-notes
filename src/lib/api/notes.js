@@ -1,8 +1,12 @@
 import { API_URL } from '$lib/constants';
 
-export async function fetchNotes() {
-	const res = await fetch(API_URL);
-	if (!res.ok) throw new Error('Failed to load notes');
+// export async function fetchNotes() {
+// 	const res = await fetch(API_URL);
+// 	if (!res.ok) throw new Error('Failed to load notes');
+// 	return await res.json();
+// }
+export async function fetchNotes(page = 1, limit = 20) {
+	const res = await fetch(`${API_URL}?page=${page}&limit=${limit}`);
 	return await res.json();
 }
 

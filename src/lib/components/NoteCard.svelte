@@ -1,4 +1,5 @@
 <script>
+	import { formatDate, formatTime } from '$lib/utility/formatDate';
 	import ConfirmationBox from './ConfirmationBox.svelte';
 	import DeleteIcon from './DeleteIcon.svelte';
 	import EditIcon from './EditIcon.svelte';
@@ -12,6 +13,9 @@
 <div class="rounded-xl border border-gray-200 bg-blue-100 p-5 shadow-md">
 	<h2 class="mb-2 text-2xl font-semibold text-gray-800">{note.title}</h2>
 	<p class="whitespace-pre-wrap text-gray-600">{note.content}</p>
+	<p class="whitespace-pre-wrap text-gray-600">
+		{formatDate(note.createdAt) + ' ' + formatTime(note.createdAt)}
+	</p>
 
 	<div class="mt-4 flex justify-end gap-4">
 		<button
