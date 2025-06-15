@@ -48,11 +48,11 @@ Build a simple web application using **Svelte** and **TailwindCSS** that interac
 
 These aren't mandatory, but could be a way to showcase your abilities:
 
-- Improve the UX feedback on async operations. E.g. show a spinner while waiting for a response and/or perform operations optimistically, reflecting changes before the response comes back.
+- ✅ Improve the UX feedback on async operations. E.g. show a spinner while waiting for a response and/or perform operations optimistically, reflecting changes before the response comes back.
 - Implement pagination, limiting the view to 20 notes per page, or infinite scroll.
 - Sorting of notes
 - Implement a search box, allowing the user to filter notes by title.
-- Implement a confirmation modal for deleting notes.
+- ✅ Implement a confirmation modal for deleting notes.
 - Dark mode.
 
 Note that these are not requirements, and you could also ship other features that you think would be interesting, even if they are not part of this document. You are also welcome to deviate from the requirements as long as you provide a reasonable UX/UI justification for your choices.

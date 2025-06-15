@@ -1,10 +1,12 @@
 <script>
+	import ConfirmationBox from './ConfirmationBox.svelte';
 	import DeleteIcon from './DeleteIcon.svelte';
 	import EditIcon from './EditIcon.svelte';
 
 	export let note;
 	export let deleteNote;
 	export let editNote;
+	let id = null;
 </script>
 
 <div class="rounded-xl border border-gray-200 bg-blue-100 p-5 shadow-md">

@@ -1,10 +1,11 @@
 <script>
 	import { onMount } from 'svelte';
-	import { isLoading } from '$lib/stores/data';
+	import { isLoading, deleteConferm, deleteItemId } from '$lib/stores/data';
 	import NoteCard from '$lib/components/NoteCard.svelte';
 
 	import { fetchNotes, createNote, updateNote, deleteNote as deleteNoteAPI } from '$lib/api/notes';
 	import Spinner from '$lib/components/Spinner.svelte';
+	import ConfirmationBox from '$lib/components/ConfirmationBox.svelte';
 
 	let notes = [];
 	let title = '';
@@ -33,8 +34,8 @@
 	};
 
 	const deleteNote = async (id) => {
-		await deleteNoteAPI(id);
-		loadNotes();
+		deleteItemId.set(id);
+		deleteConferm.set(true);
 	};
 
 	const editNote = (note) => {
@@ -46,10 +47,12 @@
 	onMount(loadNotes);
 </script>
 
-<main class="mx-auto flex h-screen w-full max-w-7xl overflow-hidden px-4 py-6 md:gap-8">
-	<!-- Aside (fixed, non-scrollable) -->
-	<aside class="w-full flex-shrink-0 border-r border-gray-200 pr-6 md:w-1/3 lg:w-1/4">
-		<h1 class="mb-8 text-center text-3xl font-bold text-blue-600 md:text-left">📝 Notes App</h1>
+<main class="mx-auto flex w-full max-w-7xl flex-col gap-6 px-4 py-4 md:flex-row">
+	<!-- Sidebar (form section) -->
+	<aside
+		class="w-full border-b border-gray-200 pr-0 md:w-1/3 md:border-b-0 md:border-r md:pr-6 lg:w-1/4"
+	>
+		<h1 class="mb-6 text-center text-3xl font-bold text-blue-600 md:text-left">📝 Notes App</h1>
 
 		<form on:submit|preventDefault={handleSubmit} class="space-y-4">
 			<input
@@ -76,16 +79,16 @@
 		</form>
 	</aside>
 
-	<!-- Notes (scrollable) -->
-	<section class="flex flex-1 flex-col overflow-hidden">
-		<!-- Sticky search bar -->
-		<div class="mb-4 flex-shrink-0 bg-white">
-			<form class="">
+	<!-- Notes Section -->
+	<section class="flex h-[70vh] flex-1 flex-col md:h-[calc(100vh-4rem)]">
+		<!-- Sticky Search Bar -->
+		<div class="sticky top-0 z-10 bg-white pb-4">
+			<form>
 				<div
-					class="flex flex-col items-stretch gap-3 rounded-xl border border-gray-300 bg-white px-4 py-2 shadow-sm focus-within:border-blue-500 sm:flex-row sm:items-center sm:gap-2"
+					class="flex flex-col items-stretch gap-3 rounded-xl border border-gray-300 bg-white px-4 py-2 shadow-sm focus-within:border-blue-500 sm:flex-row sm:items-center"
 				>
 					<input
-						class="mx-2 my-2 flex-1 bg-transparent text-gray-700 placeholder-gray-400 focus:outline-none"
+						class="flex-1 bg-transparent text-gray-700 placeholder-gray-400 focus:outline-none"
 						type="text"
 						placeholder="Search your notes"
 					/>
@@ -99,8 +102,8 @@
 			</form>
 		</div>
 
-		<!-- Scrollable notes list -->
-		<div class="flex-1 overflow-y-auto pr-2">
+		<!-- Notes List -->
+		<div class="mt-4 flex-1 overflow-y-auto pr-2">
 			{#if $isLoading}
 				<div class="flex h-40 items-center justify-center">
 					<Spinner />
@@ -114,4 +117,13 @@
 			{/if}
 		</div>
 	</section>
+
+	{#if $deleteConferm}
+		<ConfirmationBox
+			message="Do you really want to delete this note?"
+			on:confirm={deleteConfirmed}
+			on:cancel={cancelDelete}
+			{loadNotes}
+		/>
+	{/if}
 </main>
